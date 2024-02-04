@@ -6,23 +6,49 @@ const FetchQuotes = () => {
 
     useEffect(() => {
         fetch('/api/Quotes/')
-            .then((results) => {           
+            .then((results) => {
                 return results.json();
             })
             .then(data => {
                 setQuotes(data)
             })
-    },[])
-    
+    }, [])
+
 
     return (
-        <main>
+        <div>
             {
-                (quotes != null) ? quotes.map((quote) => <h3>{quote.petOwner.FirstName}</h3>) :
-                    <div>Loading...</div>
-            }
-        </main>
-        )
+                quotes.map(function (quote, i) {
+                    return <table key={i}>
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>last Name</th>
+                                <th>Cats</th>
+                                <th>Dogs</th>
+                                <th>Date of Departure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {[quote.petOwner.firstName]}
+                                </td>
+                                <td>
+                                    {[quote.petOwner.lastName]}
+                                </td>
+                                <td>
+                                    {[quote.petOwner.cat.quantity]}
+                                </td>
+                                <td>
+                                    {[quote.petOwner.dog.quantity]}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                })}
+        </div>
+    )
 
 }
 export default FetchQuotes;

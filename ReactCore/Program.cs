@@ -1,13 +1,17 @@
+using TravelingPawsAPI.DataContext;
+using TravelingPawsAPI.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add builder.Services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<QuoteContext>();
+builder.Services.AddDbContext<QuoteInMemoryContext>();
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+builder.Services.AddScoped<IInMemoryQuoteRepository, InMemoryQuoteRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
-//builder.Services.AddHttpClient("QuotesAPI",client =>
-//{
-//    client.BaseAddress = new Uri("https://localhost:44306/");
-//});
 
 var app = builder.Build();
 
